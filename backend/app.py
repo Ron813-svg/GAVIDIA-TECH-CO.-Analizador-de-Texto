@@ -5,17 +5,16 @@ from src.models.db import init_db
 from src.routes.analisis_routes import analisis_bp
 
 app = Flask(__name__)
-CORS(
-    app,
-    resources={
-        r"/analisis": {
-            "origins": ["https://gavidia-tech-co-analizador-de-texto.vercel.app", "http://localhost:3000", "http://localhost:5173", "http://127.0.0.1:3000", "http://127.0.0.1:5173"]
-        }
-    },
-)
+
+CORS(app, resources={
+    r"/*": {
+        "origins": "https://gavidia-tech-co-analizador-de-texto.vercel.app",
+        "methods": ["GET", "POST", "OPTIONS"],
+        "allow_headers": ["Content-Type"]
+    }
+})
 
 app.config.from_object(Config)
-
 init_db(app)
 app.register_blueprint(analisis_bp)
 
