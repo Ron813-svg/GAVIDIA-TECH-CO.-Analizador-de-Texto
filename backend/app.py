@@ -5,6 +5,7 @@ from src.models.db import init_db
 from src.routes.analisis_routes import analisis_bp
 
 app = Flask(__name__)
+app.url_map.strict_slashes = False
 
 CORS(app, resources={
     r"/*": {
