@@ -1,49 +1,57 @@
-import { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import heroImg from './assets/Logo.jpeg'
-import config from './config'
-import './App.css'
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import heroImg from "./assets/Logo.jpeg";
+import config from "./config";
+import "./App.css";
 
 function App() {
-  const [results, setResults] = useState(null)
-  const [isLoading, setIsLoading] = useState(false)
-  const { register, handleSubmit, watch, formState: { errors } } = useForm({
+  const [results, setResults] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm({
     defaultValues: {
-      texto: '',
+      texto: "",
     },
-  })
+  });
 
-  const texto = watch('texto')
+  const texto = watch("texto");
 
   const onSubmit = async (data) => {
     if (!data.texto.trim()) {
-      alert('Por favor ingresa un texto')
-      return
+      alert("Por favor ingresa un texto");
+      return;
     }
 
-    setIsLoading(true)
+    setIsLoading(true);
     try {
-      const response = await fetch(`https://gavidia-tech-co-analizador-de-texto.onrender.com/analisis`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      const response = await fetch(
+        "https://gavidia-tech-co-analizador-de-texto.onrender.com/analisis",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ texto: data.texto }),
         },
-        body: JSON.stringify({ texto: data.texto }),
-      })
+      );
 
       if (!response.ok) {
-        throw new Error('Error en la solicitud')
+        throw new Error("Error en la solicitud");
       }
 
-      const responseData = await response.json()
-      setResults(responseData)
+      const responseData = await response.json();
+      setResults(responseData);
     } catch (error) {
-      console.error('Error:', error)
-      alert('Error al analizar el texto')
+      console.error("Error:", error);
+      alert("Error al analizar el texto");
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   return (
     <div className="container">
@@ -56,7 +64,9 @@ function App() {
       <main className="main-content">
         <section className="description">
           <p>
-            Este analizador de texto simple permite analizar un texto ingresado y que muestra estadísticas básicas como cantidad de palabras, letras, números, espacios y líneas.
+            Este analizador de texto simple permite analizar un texto ingresado
+            y que muestra estadísticas básicas como cantidad de palabras,
+            letras, números, espacios y líneas.
           </p>
         </section>
 
@@ -65,25 +75,30 @@ function App() {
           <ol>
             <li>Escribe o pega tu texto en el cuadro principal.</li>
             <li>Presiona el botón "Analizar Texto".</li>
-            <li>El sistema mostrará automáticamente los resultados del análisis.</li>
-            <li>Puedes modificar el texto y volver a analizarlo las veces que quieras.</li>
+            <li>
+              El sistema mostrará automáticamente los resultados del análisis.
+            </li>
+            <li>
+              Puedes modificar el texto y volver a analizarlo las veces que
+              quieras.
+            </li>
           </ol>
         </section>
 
         <form onSubmit={handleSubmit(onSubmit)}>
           <section className="analyzer">
             <textarea
-              {...register('texto')}
+              {...register("texto")}
               placeholder="Ingrese o pegue texto copiado..."
               className="text-input"
             ></textarea>
-            
-            <button 
-              type="submit" 
+
+            <button
+              type="submit"
               className="analyze-button"
               disabled={isLoading}
             >
-              {isLoading ? 'Analizando...' : 'Analizar texto'}
+              {isLoading ? "Analizando..." : "Analizar texto"}
             </button>
           </section>
         </form>
@@ -117,7 +132,7 @@ function App() {
         )}
       </main>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

@@ -5,9 +5,7 @@ from src.models.db import init_db
 from src.routes.analisis_routes import analisis_bp
 
 app = Flask(__name__)
-CORS(app,
-     origins=["http://localhost:5173"],
-     supports_credentials=True)
+CORS(app, origins="*")
 
 app.config.from_object(Config)
 
