@@ -1,121 +1,122 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
+import { useForm } from 'react-hook-form'
+import heroImg from './assets/Logo.jpeg'
+import config from './config'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [results, setResults] = useState(null)
+  const [isLoading, setIsLoading] = useState(false)
+  const { register, handleSubmit, watch, formState: { errors } } = useForm({
+    defaultValues: {
+      texto: '',
+    },
+  })
+
+  const texto = watch('texto')
+
+  const onSubmit = async (data) => {
+    if (!data.texto.trim()) {
+      alert('Por favor ingresa un texto')
+      return
+    }
+
+    setIsLoading(true)
+    try {
+      const response = await fetch(`https://gavidia-tech-co-analizador-de-texto.onrender.com/analisis`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ texto: data.texto }),
+      })
+
+      if (!response.ok) {
+        throw new Error('Error en la solicitud')
+      }
+
+      const responseData = await response.json()
+      setResults(responseData)
+    } catch (error) {
+      console.error('Error:', error)
+      alert('Error al analizar el texto')
+    } finally {
+      setIsLoading(false)
+    }
+  }
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
+    <div className="container">
+      <header className="header">
+        <img src={heroImg} alt="Gavidia Logo" className="logo" />
+        <h1>Gavidia</h1>
+        <p>Tech CO</p>
+      </header>
+
+      <main className="main-content">
+        <section className="description">
           <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
+            Este analizador de texto simple permite analizar un texto ingresado y que muestra estadísticas básicas como cantidad de palabras, letras, números, espacios y líneas.
           </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+        </section>
 
-      <div className="ticks"></div>
+        <section className="instructions">
+          <h2>Instrucciones de uso</h2>
+          <ol>
+            <li>Escribe o pega tu texto en el cuadro principal.</li>
+            <li>Presiona el botón "Analizar Texto".</li>
+            <li>El sistema mostrará automáticamente los resultados del análisis.</li>
+            <li>Puedes modificar el texto y volver a analizarlo las veces que quieras.</li>
+          </ol>
+        </section>
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <section className="analyzer">
+            <textarea
+              {...register('texto')}
+              placeholder="Ingrese o pegue texto copiado..."
+              className="text-input"
+            ></textarea>
+            
+            <button 
+              type="submit" 
+              className="analyze-button"
+              disabled={isLoading}
+            >
+              {isLoading ? 'Analizando...' : 'Analizar texto'}
+            </button>
+          </section>
+        </form>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+        {results && (
+          <section className="results">
+            <h3>Resultados del análisis</h3>
+            <div className="results-grid">
+              <div className="result-item">
+                <span className="result-label">Palabras:</span>
+                <span className="result-value">{results.palabras}</span>
+              </div>
+              <div className="result-item">
+                <span className="result-label">Letras:</span>
+                <span className="result-value">{results.letras}</span>
+              </div>
+              <div className="result-item">
+                <span className="result-label">Números:</span>
+                <span className="result-value">{results.numeros}</span>
+              </div>
+              <div className="result-item">
+                <span className="result-label">Espacios:</span>
+                <span className="result-value">{results.espacios}</span>
+              </div>
+              <div className="result-item">
+                <span className="result-label">Líneas:</span>
+                <span className="result-value">{results.lineas}</span>
+              </div>
+            </div>
+          </section>
+        )}
+      </main>
+    </div>
   )
 }
 
