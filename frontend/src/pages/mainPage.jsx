@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect, use } from 'react'
 import { useForm } from 'react-hook-form'
 import { Toaster } from 'react-hot-toast'
 import heroImg from '../assets/Logo.jpeg'
@@ -15,6 +15,16 @@ function MainPage() {
   const { register, handleSubmit } = useForm({
     defaultValues: { texto: '' },
   })
+  
+useEffect(() => {
+    const init = async () => {
+      try {
+        await obtenerHistorial()
+      } finally {
+        
+      }
+    }
+  }, [])
 
   const onSubmit = (data) => {
     analizar(data.texto)
