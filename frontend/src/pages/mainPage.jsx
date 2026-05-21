@@ -4,7 +4,7 @@ import { Toaster } from 'react-hot-toast'
 import heroImg from '../assets/Logo.jpeg'
 import { useFetchAnalisis } from '../hooks/useFetchAnalisis'
 import { useFetchHistorial } from '../hooks/useFetchHistorial'
-import HistorialModal from '../Components/modal'
+import HistorialModal from '../components/modal.jsx'
 import '../components/historial.css'
 
 function MainPage() {
