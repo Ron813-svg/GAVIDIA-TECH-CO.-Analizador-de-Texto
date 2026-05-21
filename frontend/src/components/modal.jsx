@@ -2,16 +2,16 @@ import './modal.css'
 
 function HistorialModal({ item, onClose }) {
   if (!item) return null
- console.log('item completo:', item)        
- console.log('keys:', Object.keys(item))   
 
   const r = item.resultados ?? {}
 
   const parseFecha = () => {
-    const raw = item.fecha?.date ?? item.createdAt ?? item.fecha ?? null
+    const raw = item.fecha ?? item.createdAt ?? null
 
     if (raw) {
-      const d = new Date(raw)
+      // Normalizar el string: reemplazar +00:00 por Z para compatibilidad total
+      const normalizado = typeof raw === 'string' ? raw.replace('+00:00', 'Z') : raw
+      const d = new Date(normalizado)
       if (!isNaN(d)) return d.toLocaleDateString('es-SV', { year: 'numeric', month: 'long', day: 'numeric' })
     }
 
@@ -21,7 +21,6 @@ function HistorialModal({ item, onClose }) {
       if (!isNaN(d)) return d.toLocaleDateString('es-SV', { year: 'numeric', month: 'long', day: 'numeric' })
     }
 
-    return 'Fecha no disponible'
   }
 
   const fecha = parseFecha()
@@ -35,7 +34,7 @@ function HistorialModal({ item, onClose }) {
           <button className="hmodal-close-btn" onClick={onClose}>✕</button>
         </div>
 
-        <p className="hmodal-fecha"> Dia de Ingreso:  {fecha}</p>
+        <p className="hmodal-fecha">📅 {fecha}</p>
 
         <div className="hmodal-stats-grid">
           <div className="hmodal-stat-item">

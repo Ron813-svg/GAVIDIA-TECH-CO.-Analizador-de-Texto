@@ -16,4 +16,11 @@ def obtener_historial():
     documentos = mongo.db.analisis.find(
         {}, {"_id": 0, "texto": 1, "resultados": 1, "fecha": 1}
     ).sort("fecha", -1)
-    return list(documentos)
+
+    historial = []
+    for doc in documentos:
+        if isinstance(doc.get("fecha"), datetime):
+            doc["fecha"] = doc["fecha"].isoformat()
+        historial.append(doc)
+
+    return historial
