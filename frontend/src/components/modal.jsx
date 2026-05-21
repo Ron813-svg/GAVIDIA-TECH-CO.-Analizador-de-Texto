@@ -8,7 +8,7 @@ function HistorialModal({ item, onClose }) {
   const r = item.resultados ?? {}
 
   const parseFecha = () => {
-    const raw = item.createdAt ?? item.fecha ?? null
+    const raw = item.fecha?.date ?? item.createdAt ?? item.fecha ?? null
 
     if (raw) {
       const d = new Date(raw)
