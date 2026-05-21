@@ -10,13 +10,13 @@ function HistorialModal({ item, onClose }) {
 
     if (raw) {
       const d = new Date(raw)
-      if (!isNaN(d)) return d.toLocaleString('es-SV', { dateStyle: 'long', timeStyle: 'short' })
+      if (!isNaN(d)) return d.toLocaleDateString('es-SV', { year: 'numeric', month: 'long', day: 'numeric' })
     }
 
     if (item._id && typeof item._id === 'string' && item._id.length >= 8) {
       const timestamp = parseInt(item._id.substring(0, 8), 16) * 1000
       const d = new Date(timestamp)
-      if (!isNaN(d)) return d.toLocaleString('es-SV', { dateStyle: 'long', timeStyle: 'short' })
+      if (!isNaN(d)) return d.toLocaleDateString('es-SV', { year: 'numeric', month: 'long', day: 'numeric' })
     }
 
     return 'Fecha no disponible'
@@ -33,7 +33,7 @@ function HistorialModal({ item, onClose }) {
           <button className="hmodal-close-btn" onClick={onClose}>✕</button>
         </div>
 
-        <p className="hmodal-fecha">📅 {fecha}</p>
+        <p className="hmodal-fecha"> Dia de Ingreso:  {fecha}</p>
 
         <div className="hmodal-stats-grid">
           <div className="hmodal-stat-item">
