@@ -2,6 +2,8 @@ import './modal.css'
 
 function HistorialModal({ item, onClose }) {
   if (!item) return null
+ console.log('item completo:', item)        
+ console.log('keys:', Object.keys(item))   
 
   const r = item.resultados ?? {}
 
