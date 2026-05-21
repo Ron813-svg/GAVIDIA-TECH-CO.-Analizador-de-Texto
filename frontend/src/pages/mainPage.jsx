@@ -4,8 +4,7 @@ import { Toaster } from 'react-hot-toast'
 import heroImg from '../assets/Logo.jpeg'
 import { useFetchAnalisis } from '../hooks/useFetchAnalisis'
 import { useFetchHistorial } from '../hooks/useFetchHistorial'
-import HistorialModal from '../components/modal.jsx'
-import '../components/historial.css'
+import HistorialModal from '../Components/HistorialModal'
 
 function MainPage() {
   const { results, isLoading, analizar } = useFetchAnalisis()
@@ -121,7 +120,7 @@ function MainPage() {
                       ? item.texto.slice(0, 50) + (item.texto.length > 50 ? '…' : '')
                       : 'Sin texto'}
                   </span>
-                  <span className="historial-item-words">{item.palabras ?? '?'} palabras</span>
+                  <span className="historial-item-words">{item.resultados?.Palabras ?? '?'} palabras</span>
                   <span className="historial-item-arrow">›</span>
                 </li>
               ))}
