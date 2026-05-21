@@ -19,28 +19,28 @@ function HistorialModal({ item, onClose }) {
           <button className="modal-close-btn" onClick={onClose}>✕</button>
         </div>
 
-        <p className="modal-fecha">📅 {fecha}</p>
+        <p className="modal-fecha"> {fecha}</p>
 
         <div className="modal-stats-grid">
           <div className="modal-stat-item">
             <span className="modal-stat-label">Palabras</span>
-            <span className="modal-stat-value">{item.palabras ?? '—'}</span>
+            <span className="modal-stat-value">{item.result?.palabras ?? '—'}</span>
           </div>
           <div className="modal-stat-item">
             <span className="modal-stat-label">Letras</span>
-            <span className="modal-stat-value">{item.letras ?? '—'}</span>
+            <span className="modal-stat-value">{item.result?.letras ?? '—'}</span>
           </div>
           <div className="modal-stat-item">
             <span className="modal-stat-label">Números</span>
-            <span className="modal-stat-value">{item.numeros ?? '—'}</span>
+            <span className="modal-stat-value">{item.result?.numeros ?? '—'}</span>
           </div>
           <div className="modal-stat-item">
             <span className="modal-stat-label">Espacios</span>
-            <span className="modal-stat-value">{item.espacios ?? '—'}</span>
+            <span className="modal-stat-value">{item.result?.espacios ?? '—'}</span>
           </div>
           <div className="modal-stat-item">
             <span className="modal-stat-label">Líneas</span>
-            <span className="modal-stat-value">{item.lineas ?? '—'}</span>
+            <span className="modal-stat-value">{item.result?.lineas ?? '—'}</span>
           </div>
         </div>
 
