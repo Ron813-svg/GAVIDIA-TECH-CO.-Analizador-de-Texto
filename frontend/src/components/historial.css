@@ -1,0 +1,106 @@
+/* ── Historial Section ─────────────────────────────────── */
+
+.historial-section {
+  margin-top: 2.5rem;
+}
+
+.historial-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.historial-header h2 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 0;
+}
+
+.historial-btn {
+  background: #1a1a2e;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.45rem 1rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+}
+
+.historial-btn:hover:not(:disabled) {
+  background: #2e2e5e;
+  transform: translateY(-1px);
+}
+
+.historial-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.historial-empty {
+  font-size: 0.88rem;
+  color: #aaa;
+  text-align: center;
+  padding: 1.5rem 0;
+  border: 2px dashed #e8e8e8;
+  border-radius: 10px;
+}
+
+.historial-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.historial-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: #f8f8ff;
+  border: 1px solid #e8e8f0;
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  transition: background 0.18s, transform 0.15s, box-shadow 0.18s;
+}
+
+.historial-item:hover {
+  background: #eeeeff;
+  transform: translateX(4px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.07);
+}
+
+.historial-item-index {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #aaa;
+  min-width: 28px;
+}
+
+.historial-item-preview {
+  flex: 1;
+  font-size: 0.88rem;
+  color: #444;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.historial-item-words {
+  font-size: 0.78rem;
+  color: #888;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.historial-item-arrow {
+  font-size: 1.1rem;
+  color: #bbb;
+  font-weight: 300;
+}
