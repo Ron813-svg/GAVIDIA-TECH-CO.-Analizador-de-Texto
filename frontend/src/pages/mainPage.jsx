@@ -6,30 +6,20 @@ import { useFetchAnalisis } from '../hooks/useFetchAnalisis'
 import { useFetchHistorial } from '../hooks/useFetchHistorial'
 import HistorialModal from '../components/modal.jsx'
 import '../components/historial.css'
+import LoadingScreen from '../components/LoadingScreen/LoadingScreen.jsx'
 
 function MainPage() {
   const { results, isLoading, analizar } = useFetchAnalisis()
-  const { historial, isLoading: isLoadingHistorial, obtenerHistorial } = useFetchHistorial()
+  const { historial, isLoadingHistorial, obtenerHistorial } = useFetchHistorial()
   const [selectedItem, setSelectedItem] = useState(null)
+  
 
   const { register, handleSubmit } = useForm({
     defaultValues: { texto: '' },
   })
+
+  if (isLoadingHistorial) return <LoadingScreen message='Cargado ....'></LoadingScreen>
   
-useEffect(() => {
-    const init = async () => {
-      try {
-        await obtenerHistorial()
-      } finally {
-        
-      }
-    }
-  }, [])
-
-  const onSubmit = (data) => {
-    analizar(data.texto)
-  }
-
   return (
     <div className="container">
       <Toaster position="top-right" toastOptions={{ duration: 3000 }} />
