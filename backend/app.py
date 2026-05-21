@@ -11,7 +11,8 @@ CORS(app, resources={
     r"/*": {
         "origins": "https://gavidia-tech-co-analizador-de-texto.vercel.app",
         "methods": ["GET", "POST", "OPTIONS"],
-        "allow_headers": ["Content-Type"]
+        "allow_headers": ["Content-Type"],
+        "supports_credentials": False
     }
 })
 
