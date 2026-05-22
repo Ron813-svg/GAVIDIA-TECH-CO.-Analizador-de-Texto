@@ -3,14 +3,14 @@ import { useForm } from 'react-hook-form'
 import { Toaster } from 'react-hot-toast'
 import heroImg from '../assets/Logo.jpeg'
 import { useFetchAnalisis } from '../hooks/useFetchAnalisis'
-import { useFetchHistorial } from '../hooks/useFetchHistorial'
+import useFetchHistorial from '../hooks/useFetchHistorial'
 import HistorialModal from '../components/modal.jsx'
 import '../components/historial.css'
 import LoadingScreen from '../components/LoadingScreen/LoadingScreen.jsx'
 
 function MainPage() {
   const { results, isLoading, analizar } = useFetchAnalisis()
-  const { historial, isLoadingHistorial, obtenerHistorial } = useFetchHistorial()
+  const { historial, loading, error  } = useFetchHistorial()
   const [selectedItem, setSelectedItem] = useState(null)
   
 
@@ -18,8 +18,9 @@ function MainPage() {
     defaultValues: { texto: '' },
   })
 
-  if (isLoadingHistorial) return <LoadingScreen message='Cargado ....'></LoadingScreen>
-  
+  if (loading) return <LoadingScreen message='Cargado ....'></LoadingScreen>
+  if (error) return <div className="error-message">Error: {error}</div>
+
   const onSubmit = (data) => {
     analizar(data.texto)
   }
@@ -102,10 +103,10 @@ function MainPage() {
             <h2>Historial de análisis</h2>
             <button
               className="historial-btn"
-              onClick={obtenerHistorial}
-              disabled={isLoadingHistorial}
+              onClick={historial}
+              disabled={loading}
             >
-              {isLoadingHistorial ? 'Cargando...' : '↻ Actualizar'}
+              {loading ? 'Cargando...' : '↻ Actualizar'}
             </button>
           </div>
 

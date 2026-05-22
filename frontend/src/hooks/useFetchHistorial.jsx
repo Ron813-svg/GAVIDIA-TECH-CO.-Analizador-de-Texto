@@ -1,39 +1,33 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import config from "../config";
 
-export function useFetchHistorial() {
+
+const useFetchHistorial = () => {
   const [historial, setHistorial] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  const obtenerHistorial = async () => {
-    setIsLoading(true);
+  const fetchHistorial = async () => {
     try {
-      const response = await toast.promise(
-        fetch(`${config.apiUrl}/analisis/historial`),
-        {
-          loading: "Cargando historial...",
-          success: "Historial cargado",
-          error: "Error al cargar el historial",
-        },
-      );
+      const response = await fetch(`${config.apiUrl}/analisis/historial`);
+      if (!response.ok) throw new Error(`Error ${response.status}`);
 
-      if (!response.ok) {
-        throw new Error("Error en la solicitud");
-      }
-
-      const responseData = await response.json();
-      if (responseData.ok && responseData.historial) {
-        setHistorial(responseData.historial);
-      } else {
-        throw new Error("Respuesta inválida del servidor");
-      }
+      const data = await response.json();
+      setHistorial(data);
     } catch (error) {
       console.error("Error:", error);
+      setError(error.message);
     } finally {
-      setIsLoading(false);
+      setLoading(false);
     }
   };
 
-  return { historial, obtenerHistorial, isLoading };
+  useEffect(() => {
+    fetchHistorial();
+  }, []);
+
+  return { historial,  loading, error };
 }
+
+export default useFetchHistorial;
