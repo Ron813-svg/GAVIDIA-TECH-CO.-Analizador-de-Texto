@@ -9,6 +9,8 @@ const useFetchHistorial = () => {
   const [error, setError] = useState(null);
 
   const fetchHistorial = async () => {
+    setLoading(true); 
+    setError(null);
     try {
       const response = await fetch(`${config.apiUrl}/analisis/historial`);
       if (!response.ok) throw new Error(`Error ${response.status}`);
@@ -27,7 +29,7 @@ const useFetchHistorial = () => {
     fetchHistorial();
   }, []);
 
-  return { historial,  loading, error };
+  return { historial, loading, error, fetchHistorial };
 }
 
 export default useFetchHistorial;

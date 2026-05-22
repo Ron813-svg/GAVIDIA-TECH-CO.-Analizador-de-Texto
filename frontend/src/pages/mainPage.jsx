@@ -10,15 +10,21 @@ import LoadingScreen from '../components/LoadingScreen/LoadingScreen.jsx'
 
 function MainPage() {
   const { results, isLoading, analizar } = useFetchAnalisis()
-  const { historial, loading, error  } = useFetchHistorial()
+  const { historial, loading, error, fetchHistorial } = useFetchHistorial() // ← fetchHistorial
   const [selectedItem, setSelectedItem] = useState(null)
-  
 
   const { register, handleSubmit } = useForm({
     defaultValues: { texto: '' },
   })
 
-  if (loading) return <LoadingScreen message='Cargado ....'></LoadingScreen>
+  // Recarga el historial automáticamente cada vez que llega un nuevo resultado
+  useEffect(() => {
+    if (results) {
+      fetchHistorial();
+    }
+  }, [results])
+
+  if (loading) return <LoadingScreen message='Cargando...' />
   if (error) return <div className="error-message">Error: {error}</div>
 
   const onSubmit = (data) => {
@@ -103,7 +109,7 @@ function MainPage() {
             <h2>Historial de análisis</h2>
             <button
               className="historial-btn"
-              onClick={historial}
+              onClick={fetchHistorial}
               disabled={loading}
             >
               {loading ? 'Cargando...' : '↻ Actualizar'}
