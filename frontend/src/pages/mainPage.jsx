@@ -20,6 +20,10 @@ function MainPage() {
 
   if (isLoadingHistorial) return <LoadingScreen message='Cargado ....'></LoadingScreen>
   
+  const onSubmit = (data) => {
+    analizar(data.texto)
+  }
+  
   return (
     <div className="container">
       <Toaster position="top-right" toastOptions={{ duration: 3000 }} />
