@@ -1,5 +1,5 @@
 from src.models.analisis_model import guardar_analisis, obtener_historial # Importa las funciones para guardar análisis y obtener el historial desde el modelo de análisis
-
+import re # Importa el módulo de expresiones regulares para validar el texto de entrada
 # Función para realizar el análisis del texto y guardar los resultados en la base de datos
 def analizar_texto(texto):
     conteos = [
