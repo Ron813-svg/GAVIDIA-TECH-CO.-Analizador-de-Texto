@@ -13,6 +13,8 @@ export function useFetchAnalisis() {
     if (texto.length > 1000)
       return "El texto no puede superar los 1000 caracteres.";
 
+    // Función para validar repeticiones de caracteres, tanto letras/números como símbolos, 
+    // utilizando expresiones regulares para detectar secuencias de 5 o más caracteres repetidos
     const validarRepetidos = (texto) => {
       // Detecta letras/números repetidos
       const repeticionLetras = /(\w)\1{4,}/;
@@ -25,10 +27,19 @@ export function useFetchAnalisis() {
       return null;
     };
 
+    // Verifica si el texto contiene repeticiones no permitidas utilizando la función validarRepetidos, 
+    // y si es así, devuelve el mensaje de error correspondiente
+    const errorRepetidos = validarRepetidos(texto);
+    if (errorRepetidos) return errorRepetidos;
+
+    // Expresión regular para permitir solo caracteres alfanuméricos, espacios, 
+    // signos de puntuación comunes y acentos, y detectar cualquier otro carácter no permitido (como emojis o símbolos)
     const soloPermitidos = /^[\w\s\.,;:!?áéíóúÁÉÍÓÚüÜñÑ\-\(\)\"\'\n]+$/;
     if (!soloPermitidos.test(texto))
       return "El texto contiene caracteres no permitidos (emojis o símbolos).";
 
+    // Lista de patrones maliciosos comunes, como etiquetas HTML, comandos SQL, scripts y ataques de inyección, 
+    // utilizando expresiones regulares para detectar su presencia en el texto
     const patronesMaliciosos = [
       /<[^>]*>/,
       /(SELECT|INSERT|UPDATE|DELETE|DROP|ALTER|CREATE|TRUNCATE)\s/i,
