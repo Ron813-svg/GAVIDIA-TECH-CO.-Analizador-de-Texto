@@ -1,10 +1,13 @@
 import './modal.css'
 
-function HistorialModal({ item, onClose }) {
+// Función para mostrar el modal con los detalles del análisis
+const HistorialModal = ({ item, onClose }) => {
   if (!item) return null
 
+  // Asegurarse de que item.resultados sea un objeto, incluso si no existe
   const r = item.resultados ?? {}
 
+  // Función para parsear la fecha de manera robusta
   const parseFecha = () => {
     const raw = item.fecha ?? item.createdAt ?? null
 
@@ -23,8 +26,10 @@ function HistorialModal({ item, onClose }) {
 
   }
 
+  // Obtener la fecha parseada
   const fecha = parseFecha()
 
+  // Renderizar el modal con los detalles del análisis
   return (
     <div className="hmodal-overlay" onClick={onClose}>
       <div className="hmodal" onClick={(e) => e.stopPropagation()}>
@@ -34,7 +39,7 @@ function HistorialModal({ item, onClose }) {
           <button className="hmodal-close-btn" onClick={onClose}>✕</button>
         </div>
 
-        <p className="hmodal-fecha">📅 {fecha}</p>
+        <p className="hmodal-fecha">Fecha: {fecha}</p>
 
         <div className="hmodal-stats-grid">
           <div className="hmodal-stat-item">

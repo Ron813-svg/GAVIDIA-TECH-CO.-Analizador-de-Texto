@@ -1,41 +1,45 @@
-import { useState, useEffect, use } from 'react'
+import { useState, useEffect, use } from 'react' 
 import { useForm } from 'react-hook-form'
 import { Toaster } from 'react-hot-toast'
+// Importación de imagenes, estilos y componentes
 import heroImg from '../assets/Logo.jpeg'
-import { useFetchAnalisis } from '../hooks/useFetchAnalisis'
-import useFetchHistorial from '../hooks/useFetchHistorial'
-import HistorialModal from '../components/modal.jsx'
-import '../components/historial.css'
-import LoadingScreen from '../components/LoadingScreen/LoadingScreen.jsx'
+import { useFetchAnalisis } from '../hooks/useFetchAnalisis' // Hook personalizado para manejar el análisis de texto
+import useFetchHistorial from '../hooks/useFetchHistorial' // Hook personalizado para manejar el historial de análisis
+import HistorialModal from '../components/modal.jsx' // Componente del modal para mostrar detalles del análisis
+import '../components/historial.css' // Estilos para el historial
+import LoadingScreen from '../components/LoadingScreen/LoadingScreen.jsx' // Componente de la pantalla de carga
 
 function MainPage() {
-  const { results, isLoading, analizar } = useFetchAnalisis()
-  const { historial, loading, error, fetchHistorial } = useFetchHistorial() 
-  const [selectedItem, setSelectedItem] = useState(null)
+  const { resultados, isLoading, analizar } = useFetchAnalisis() // Hook para manejar el análisis de texto
+  const { historial, loading, error, getHistorial } = useFetchHistorial() // Hook para manejar el historial de análisis
+  const [selectedItem, setSelectedItem] = useState(null) // Estado para el item seleccionado del historial
 
+  // Configuración del formulario con react-hook-form
   const { register, handleSubmit } = useForm({
     defaultValues: { texto: '' },
   })
 
   // Carga el historial de análisis al montar el componente
    useEffect(() => {
-    fetchHistorial();
+    getHistorial();
   }, []);
 
   // Recarga el historial automáticamente cada vez que llega un nuevo resultado
   useEffect(() => {
-    if (results) {
-      fetchHistorial();
+    if (resultados) {
+      getHistorial();
     }
-  }, [results])
+  }, [resultados])
 
   if (loading) return <LoadingScreen message='Cargando...' />
   if (error) return <div className="error-message">Error: {error}</div>
 
+  // Función para manejar el envío del formulario de análisis
   const onSubmit = (data) => {
     analizar(data.texto)
   }
   
+  // Renderizado del componente principal
   return (
     <div className="container">
       <Toaster position="top-right" toastOptions={{ duration: 3000 }} />
@@ -63,6 +67,7 @@ function MainPage() {
           </ol>
         </section>
 
+        {/* Formulario para ingresar el texto a analizar */}
         <form onSubmit={handleSubmit(onSubmit)}>
           <section className="analyzer">
             <textarea
@@ -80,30 +85,30 @@ function MainPage() {
             </button>
           </section>
         </form>
-
-        {results && (
+        {/* Muestra los resultados del análisis si existen */}
+        {resultados && (
           <section className="results">
             <h3>Resultados del análisis</h3>
             <div className="results-grid">
               <div className="result-item">
                 <span className="result-label">Palabras:</span>
-                <span className="result-value">{results.Palabras}</span>
+                <span className="result-value">{resultados.Palabras}</span>
               </div>
               <div className="result-item">
                 <span className="result-label">Letras:</span>
-                <span className="result-value">{results.Letras}</span>
+                <span className="result-value">{resultados.Letras}</span>
               </div>
               <div className="result-item">
                 <span className="result-label">Números:</span>
-                <span className="result-value">{results.Numeros}</span>
+                <span className="result-value">{resultados.Numeros}</span>
               </div>
               <div className="result-item">
                 <span className="result-label">Espacios:</span>
-                <span className="result-value">{results.Espacios}</span>
+                <span className="result-value">{resultados.Espacios}</span>
               </div>
               <div className="result-item">
                 <span className="result-label">Líneas:</span>
-                <span className="result-value">{results.Lineas}</span>
+                <span className="result-value">{resultados.Lineas}</span>
               </div>
             </div>
           </section>
@@ -114,7 +119,7 @@ function MainPage() {
             <h2>Historial de análisis</h2>
             <button
               className="historial-btn"
-              onClick={fetchHistorial}
+              onClick={getHistorial} // Botón para recargar el historial manualmente
               disabled={loading}
             >
               {loading ? 'Cargando...' : '↻ Actualizar'}
@@ -129,7 +134,7 @@ function MainPage() {
                 <li
                   key={item.id ?? index}
                   className="historial-item"
-                  onClick={() => setSelectedItem(item)}
+                  onClick={() => setSelectedItem(item)} // Abrir modal con detalles al hacer clic en el item del historial
                 >
                   <span className="historial-item-index">#{index + 1}</span>
                   <span className="historial-item-preview">
@@ -137,7 +142,7 @@ function MainPage() {
                       ? item.texto.slice(0, 50) + (item.texto.length > 50 ? '…' : '')
                       : 'Sin texto'}
                   </span>
-                  <span className="historial-item-words">{item.resultados?.Palabras ?? '?'} palabras</span>
+                  <span className="historial-item-words">{item.resultados?.Palabras ?? '?'} palabras</span> 
                   <span className="historial-item-arrow">›</span>
                 </li>
               ))}
