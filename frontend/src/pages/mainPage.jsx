@@ -7,6 +7,7 @@ import { useFetchAnalisis } from '../hooks/useFetchAnalisis' // Hook personaliza
 import useFetchHistorial from '../hooks/useFetchHistorial' // Hook personalizado para manejar el historial de análisis
 import HistorialModal from '../components/modal.jsx' // Componente del modal para mostrar detalles del análisis
 import '../components/historial.css' // Estilos para el historial
+import './mainPage.css' // Estilos responsive para la página principal
 import LoadingScreen from '../components/LoadingScreen/LoadingScreen.jsx' // Componente de la pantalla de carga
 
 function MainPage() {

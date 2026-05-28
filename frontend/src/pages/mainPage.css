@@ -1,0 +1,355 @@
+/* ── Responsive Styles for Main Page ─────────────────────── */
+
+/* Tablet Devices (768px and below) */
+@media (max-width: 768px) {
+  .container {
+    padding: 20px 15px;
+  }
+
+  .header {
+    margin-bottom: 30px;
+    padding: 20px 0;
+  }
+
+  .header .logo {
+    width: 100px;
+    height: auto;
+  }
+
+  .header h1 {
+    font-size: 36px;
+  }
+
+  .header p {
+    font-size: 18px;
+  }
+
+  .main-content {
+    padding: 25px;
+    border-radius: 8px;
+  }
+
+  .description {
+    font-size: 15px;
+    margin-bottom: 25px;
+  }
+
+  .instructions h2 {
+    font-size: 20px;
+    margin-bottom: 15px;
+  }
+
+  .instructions ol {
+    margin-left: 15px;
+  }
+
+  .instructions li {
+    font-size: 15px;
+    margin-bottom: 10px;
+  }
+
+  .text-input {
+    min-height: 200px;
+    padding: 15px;
+    font-size: 15px;
+  }
+
+  .analyze-button {
+    padding: 10px 24px;
+    font-size: 15px;
+  }
+
+  .results h3 {
+    font-size: 18px;
+  }
+
+  .results-grid {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 15px;
+  }
+
+  .result-item {
+    padding: 15px;
+  }
+
+  .result-label {
+    font-size: 13px;
+    margin-bottom: 8px;
+  }
+
+  .result-value {
+    font-size: 24px;
+  }
+
+  /* Historial optimizado para tablet */
+  .historial-section {
+    margin-top: 2rem;
+  }
+
+  .historial-header {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .historial-header h2 {
+    font-size: 1rem;
+  }
+
+  .historial-item {
+    gap: 0.5rem;
+    padding: 0.6rem 0.8rem;
+  }
+
+  .historial-item-preview {
+    font-size: 0.85rem;
+  }
+
+  .historial-item-words {
+    font-size: 0.75rem;
+  }
+}
+
+/* Mobile Devices (480px and below) */
+@media (max-width: 480px) {
+  .container {
+    padding: 15px 10px;
+    max-width: 100%;
+  }
+
+  .header {
+    margin-bottom: 20px;
+    padding: 15px 0;
+  }
+
+  .header .logo {
+    width: 80px;
+    height: auto;
+    margin-bottom: 10px;
+  }
+
+  .header h1 {
+    font-size: 28px;
+    font-weight: 700;
+  }
+
+  .header p {
+    font-size: 14px;
+    margin-top: 3px;
+  }
+
+  .main-content {
+    padding: 15px;
+    border-radius: 6px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  }
+
+  .description {
+    font-size: 14px;
+    margin-bottom: 20px;
+    text-align: left;
+    line-height: 1.5;
+  }
+
+  .instructions {
+    margin-bottom: 25px;
+  }
+
+  .instructions h2 {
+    font-size: 16px;
+    margin-bottom: 12px;
+  }
+
+  .instructions ol {
+    margin-left: 12px;
+    padding-left: 10px;
+  }
+
+  .instructions li {
+    font-size: 13px;
+    margin-bottom: 8px;
+    line-height: 1.5;
+  }
+
+  .analyzer {
+    margin-bottom: 20px;
+  }
+
+  .text-input {
+    min-height: 150px;
+    padding: 12px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+  }
+
+  .text-input::placeholder {
+    font-size: 13px;
+  }
+
+  .analyze-button {
+    display: block;
+    width: 100%;
+    padding: 12px 0;
+    font-size: 14px;
+    margin-left: 0;
+    margin-top: 15px;
+    border-radius: 6px;
+  }
+
+  .results {
+    margin-top: 25px;
+    padding-top: 20px;
+  }
+
+  .results h3 {
+    font-size: 16px;
+    margin-bottom: 15px;
+  }
+
+  .results-grid {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 10px;
+  }
+
+  .result-item {
+    padding: 12px;
+    border-radius: 6px;
+  }
+
+  .result-label {
+    font-size: 11px;
+    margin-bottom: 6px;
+  }
+
+  .result-value {
+    font-size: 20px;
+  }
+
+  /* Historial optimizado para móvil */
+  .historial-section {
+    margin-top: 1.5rem;
+  }
+
+  .historial-header {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 1rem;
+  }
+
+  .historial-header h2 {
+    font-size: 0.95rem;
+    margin: 0;
+  }
+
+  .historial-btn {
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  .historial-empty {
+    font-size: 0.8rem;
+    padding: 1rem;
+    border-radius: 6px;
+  }
+
+  .historial-item {
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    padding: 0.5rem 0.6rem;
+    border-radius: 8px;
+  }
+
+  .historial-item-index {
+    font-size: 0.7rem;
+    min-width: auto;
+  }
+
+  .historial-item-preview {
+    font-size: 0.8rem;
+    flex: 1 1 100%;
+    min-width: 0;
+  }
+
+  .historial-item-words {
+    font-size: 0.7rem;
+  }
+
+  .historial-item-arrow {
+    display: none;
+  }
+}
+
+/* Extra Small Devices (320px and below) */
+@media (max-width: 320px) {
+  .container {
+    padding: 10px 5px;
+  }
+
+  .header h1 {
+    font-size: 24px;
+  }
+
+  .header p {
+    font-size: 12px;
+  }
+
+  .main-content {
+    padding: 12px;
+  }
+
+  .description {
+    font-size: 13px;
+    margin-bottom: 15px;
+  }
+
+  .instructions h2 {
+    font-size: 14px;
+  }
+
+  .instructions li {
+    font-size: 12px;
+  }
+
+  .text-input {
+    min-height: 120px;
+    padding: 10px;
+    font-size: 13px;
+  }
+
+  .results-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .result-label {
+    font-size: 10px;
+  }
+
+  .result-value {
+    font-size: 18px;
+  }
+
+  .historial-item-preview {
+    font-size: 0.75rem;
+  }
+}
+
+/* Large Screens (1024px and above) */
+@media (min-width: 1024px) {
+  .container {
+    padding: 40px 20px;
+    max-width: 1200px;
+  }
+
+  .main-content {
+    padding: 50px;
+  }
+
+  .results-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  .historial-item-preview {
+    font-size: 0.9rem;
+  }
+}
