@@ -13,6 +13,18 @@ export function useFetchAnalisis() {
     if (texto.length > 1000)
       return "El texto no puede superar los 1000 caracteres.";
 
+    const validarRepetidos = (texto) => {
+      // Detecta letras/números repetidos
+      const repeticionLetras = /(\w)\1{4,}/;
+      // Detecta símbolos repetidos
+      const repeticionSimbolos = /([^\w\s])\1{4,}/;
+      
+      if (repeticionLetras.test(texto) || repeticionSimbolos.test(texto)) {
+        return "El texto contiene repeticiones no permitidas.";
+      }
+      return null;
+    };
+
     const soloPermitidos = /^[\w\s\.,;:!?áéíóúÁÉÍÓÚüÜñÑ\-\(\)\"\'\n]+$/;
     if (!soloPermitidos.test(texto))
       return "El texto contiene caracteres no permitidos (emojis o símbolos).";
