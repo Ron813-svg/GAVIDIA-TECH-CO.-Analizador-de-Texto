@@ -10,8 +10,8 @@ export function useFetchAnalisis() {
   // Agregar esta función antes de "const analizar"
   const validarTexto = (texto) => {
     if (texto.length < 10) return "El texto debe tener al menos 10 caracteres.";
-    if (texto.length > 5000)
-      return "El texto no puede superar los 5000 caracteres.";
+    if (texto.length > 1000)
+      return "El texto no puede superar los 1000 caracteres.";
 
     const soloPermitidos = /^[\w\s\.,;:!?áéíóúÁÉÍÓÚüÜñÑ\-\(\)\"\'\n]+$/;
     if (!soloPermitidos.test(texto))
