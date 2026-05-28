@@ -16,7 +16,7 @@ function MainPage() {
   const [selectedItem, setSelectedItem] = useState(null) // Estado para el item seleccionado del historial
 
   // Configuración del formulario con react-hook-form
-  const { register, handleSubmit } = useForm({
+  const { register, handleSubmit, reset } = useForm({
     defaultValues: { texto: '' },
   })
 
@@ -38,6 +38,7 @@ function MainPage() {
   // Función para manejar el envío del formulario de análisis
   const onSubmit = (data) => {
     analizar(data.texto)
+    reset()
   }
   
   // Renderizado del componente principal
